@@ -1,0 +1,22 @@
+{
+  "name": "bmd-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "gypfile": true,
+  "description": "",
+  "dependencies": {
+    "node-addon-api": "^8.4.0",
+    "node-gyp-build": "^4.8.4"
+  }
+}
