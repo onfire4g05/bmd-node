@@ -60,30 +60,17 @@ Napi::Value GetDeviceOutputs(const Napi::CallbackInfo& info) {
     }
     deckLinkIterator->Release();
 
-    IDeckLinkAttributes* deckLinkAttributes = nullptr;
-    int64_t outputConnections = 0;
+    // Check if device has output capability by trying to get the output interface
+    IDeckLinkOutput* deckLinkOutput = nullptr;
+    int outputCount = 0;
 
-    if (deckLink->QueryInterface(IID_IDeckLinkAttributes, (void**)&deckLinkAttributes) == S_OK) {
-        if (deckLinkAttributes->GetInt(BMDDeckLinkVideoOutputConnections, &outputConnections) == S_OK) {
-            deckLinkAttributes->Release();
-            deckLink->Release();
-
-            // Count the number of output connections by checking bits
-            int outputCount = 0;
-            for (int i = 0; i < 32; i++) {
-                if (outputConnections & (1LL << i)) {
-                    outputCount++;
-                }
-            }
-
-            return Napi::Number::New(env, outputCount);
-        }
-        deckLinkAttributes->Release();
+    if (deckLink->QueryInterface(IID_IDeckLinkOutput, (void**)&deckLinkOutput) == S_OK) {
+        outputCount = 1; // If we can get the output interface, device has at least 1 output
+        deckLinkOutput->Release();
     }
 
     deckLink->Release();
-    Napi::TypeError::New(env, "Unable to get device output count").ThrowAsJavaScriptException();
-    return env.Null();
+    return Napi::Number::New(env, outputCount);
 }
 
 Napi::Value GetDeviceTemperature(const Napi::CallbackInfo& info) {
