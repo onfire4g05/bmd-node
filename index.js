@@ -1,5 +1,7 @@
 const decklink = require('node-gyp-build')(__dirname);
 
 module.exports = {
-	getDeviceTemperature: decklink.getDeviceTemperature
+	getDeviceTemperature: decklink.getDeviceTemperature,
+	getAvailableDevices: decklink.getAvailableDevices,
+	getDeviceOutputs: decklink.getDeviceOutputs
 };
