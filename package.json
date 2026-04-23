@@ -1,18 +1,22 @@
 {
   "name": "bmd-node",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "main": "index.js",
+  "bin": {
+    "bmd-node": "./cli.js"
+  },
   "types": "index.d.ts",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./test_functions.js",
+    "cli": "node ./cli.js",
     "install": "node-gyp rebuild"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "gypfile": true,
   "description": "",
   "dependencies": {
